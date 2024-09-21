@@ -1,0 +1,117 @@
+Inicialización:
+Crear un mazo limitado de 52 cartas:
+4 palos: corazones, diamantes, tréboles, picas.
+Valores: 2-10, J, Q, K (todos valen 10), A (puede valer 1 o 11).
+Barajar el mazo.
+Crear archivo de registro de partidas pasadas: historial.txt.
+Función: barajar()
+Barajar el mazo aleatoriamente.
+Retornar la baraja.
+Función: repartirCarta(mazo)
+Verificar si hay cartas disponibles en el mazo.
+Si el mazo está vacío, barajar nuevamente.
+Tomar la carta del tope del mazo.
+Remover la carta del mazo.
+Retornar la carta.
+Función: calcularPuntaje(mano)
+Inicializar puntaje: puntaje = 0 y ases = 0.
+Para cada carta en la mano:
+Si la carta es J, Q, K: sumar 10 al puntaje.
+Si la carta es un número (2-10): sumar el valor de la carta.
+Si la carta es un As: sumar 1 al puntaje y aumentar el contador de ases.
+Manejo de Ases:
+Si el puntaje es ≤ 11 y hay al menos un As, sumar 10 al puntaje (contar el As como 11).
+Retornar el puntaje.
+Función: manejarAs()
+Imprimir "Has sacado un As. ¿Deseas que valga 1 o 11?"
+Leer respuesta del jugador.
+Si respuesta = 1, retornar 1.
+Si respuesta = 11, retornar 11.
+Función: registrarPartida(resultado, puntajeJugador, puntajeComputadora, apuesta)
+Abrir el archivo historial.txt en modo de escritura.
+Guardar el resultado de la partida, incluyendo:
+Resultado (victoria, derrota, empate).
+Puntaje del jugador y de la computadora.
+Apuesta realizada.
+Cerrar el archivo.
+Función: verHistorial()
+Abrir el archivo historial.txt en modo de lectura.
+Leer e imprimir todas las partidas registradas.
+Cerrar el archivo.
+Interfaz de inicio:
+Imprimir "Bienvenido al Blackjack. Selecciona una opción:"
+Imprimir:
+"1. Iniciar nuevo juego."
+"2. Ver historial de juegos."
+"3. Salir."
+Leer la opción del jugador.
+Función: menuPrincipal()
+Mientras el jugador no elija salir:
+Llamar a la Interfaz de inicio.
+Si opción = 1:
+Llamar a iniciarJuego().
+Si opción = 2:
+Llamar a verHistorial().
+Si opción = 3:
+Imprimir "Gracias por jugar."
+Terminar el ciclo.
+Bucle principal del juego (función iniciarJuego()):
+Mientras el jugador quiera seguir jugando y tenga dinero:
+Inicio de la ronda:
+Preguntar cuánto desea apostar: apuestaJugador.
+Verificar que el jugador tenga dinero suficiente para apostar.
+Restar la apuesta de dineroJugador.
+Limpiar las manos: manoJugador = [], manoComputadora = [].
+Repartir dos cartas al jugador y dos a la computadora:
+manoJugador.AÑADIR repartirCarta(mazo).
+manoComputadora.AÑADIR repartirCarta(mazo).
+Verificar BLACKJACK:
+Si calcularPuntaje(manoJugador) == 21 y la mano contiene un As y (J, Q, K):
+Imprimir "¡BLACKJACK! Has ganado."
+Sumar apuestaJugador * 1.5 al dinero del jugador.
+Registrar el resultado de la partida.
+Continuar a la siguiente ronda.
+Si calcularPuntaje(manoComputadora) == 21 y la mano contiene un As y (J, Q, K):
+Imprimir "¡BLACKJACK! La computadora ha ganado."
+Registrar el resultado de la partida.
+Continuar a la siguiente ronda.
+Mostrar cartas del jugador:
+Imprimir "Tus cartas: ", manoJugador.
+Imprimir "Puntaje: ", calcularPuntaje(manoJugador).
+Imprimir "La computadora tiene una carta visible: ", manoComputadora[0].
+Turno del jugador:
+Mientras el jugador no se plante o su puntaje sea menor a 21:
+Preguntar "¿Deseas pedir otra carta (hit) o plantarte (stand)?"
+Si elige "hit":
+Repartir una carta.
+Si es un As, preguntar si quiere que valga 1 o 11.
+Actualizar el puntaje.
+Si el puntaje excede 21, imprimir "¡Has perdido!".
+Si elige "stand", salir del ciclo.
+Turno de la computadora:
+Mientras el puntaje de la computadora sea menor a 17:
+Repartir una carta a la computadora.
+Actualizar el puntaje de la computadora.
+Si la computadora supera 21, el jugador gana automáticamente.
+Mostrar cartas finales de la computadora:
+Imprimir "Cartas de la computadora: ", manoComputadora.
+Imprimir "Puntaje de la computadora: ", calcularPuntaje(manoComputadora).
+Determinar ganador:
+Si calcularPuntaje(manoJugador) > 21, el jugador pierde.
+Si calcularPuntaje(manoComputadora) > 21, la computadora pierde.
+Si el puntaje del jugador es mayor que el de la computadora:
+Imprimir "¡Has ganado!".
+Sumar la apuesta al dineroJugador.
+Si el puntaje de la computadora es mayor:
+Imprimir "La computadora ha ganado."
+Si ambos tienen el mismo puntaje:
+Imprimir "¡Empate!"
+Actualizar dinero del jugador:
+Imprimir "Dinero actual: ", dineroJugador.
+Si dineroJugador <= 0, imprimir "Te has quedado sin dinero, fin del juego."
+Registrar el resultado de la partida.
+Preguntar si desea jugar otra ronda.
+Fin del juego:
+Si el jugador no quiere seguir jugando o se queda sin dinero:
+Imprimir "Gracias por jugar."
+Terminar el juego.
