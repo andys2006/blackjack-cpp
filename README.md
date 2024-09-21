@@ -1,6 +1,6 @@
 # blackjack-cpp
 Juego Blackjack
-Equipo UMISUMI
+Equipo UMISUMI 2.0
 Integrantes:
     
     Brenda Magnolia Beltran Tornero
