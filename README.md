@@ -3,7 +3,7 @@ Juego Blackjack
 Equipo UMISUMI
 Integrantes:
     
-    Brenda Beltran Magnolia
+    Brenda Magnolia Beltran Tornero
     Roberto Tapia Ramirez
     Jorge Enrique Mejia Garcia
     Andrea Rojas Zacatecas
