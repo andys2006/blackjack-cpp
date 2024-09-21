@@ -1,0 +1,59 @@
+Nombre: BlackJackUmisomie
+INICIO
+	Definir carta, sumaJugador, sumaCrupier, cartaCrupier, cartaJugador Como Entero;
+	Definir continuar Como Logico;
+	
+	sumaJugador <- 0;
+	sumaCrupier <- 0;
+	continuar <- Verdadero;
+	
+	// Repartir cartas iniciales
+	cartaJugador <- Aleatorio(1, 10);
+	cartaCrupier <- Aleatorio(1, 10);
+	sumaJugador <- cartaJugador;
+	sumaCrupier <- cartaCrupier;
+	
+	Mientras continuar Hacer
+		Escribir "Tu carta es : ", cartaJugador;
+		Escribir "Suma: ", sumaJugador;
+		Escribir "Carta del crupier: ", cartaCrupier;
+		
+		Si sumaJugador > 21 Entonces
+			Escribir "¡Has perdido! :(";
+			Escribir "Gracias por jugar";
+			continuar <- Falso;
+		Sino
+			Escribir "¿Quieres pedir otra carta?";
+			Escribir "Selecciona S para si o N para no";
+			Leer respuesta;
+			
+			Si respuesta = "S" Entonces
+				carta <- Aleatorio(1, 10);
+				sumaJugador <- sumaJugador + carta;
+			Sino
+				continuar <- Falso;
+			FinSi
+		FinSi
+	FinMientras
+	
+	Si sumaJugador <= 21 Entonces
+		Mientras sumaCrupier < 17 Hacer
+			cartaCrupier <- Aleatorio(1, 10);
+			sumaCrupier <- sumaCrupier + cartaCrupier;
+		FinMientras
+		
+		Escribir "Carta del crupier: ", cartaCrupier;
+		Escribir "Suma del crupier: ", sumaCrupier;
+		
+		Si sumaCrupier > 21 o sumaJugador > sumaCrupier Entonces
+			Escribir "¡Has ganado! :)";
+			Escribir "Gracias por jugar";
+			Si no sumaCrupier = sumaJugador Entonces
+				Escribir "Empate";
+			Sino
+				Escribir "¡Has perdido! :(";
+				Escribir "Gracias por jugar";
+			FinSi
+		FinSi
+    FinSi
+Fin
