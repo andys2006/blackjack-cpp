@@ -1,0 +1,48 @@
+Nombre: BalckJack
+Declaración de  Variables:
+    Entero: jugador, maquina, carta
+    Cadena: ms_j, ms_m
+
+Declaración de sub_procesos:
+    Nombre_sb: card_jd
+    Declaración de Variables:
+        Logico: jugador
+        Inicio
+            Hacer carta=draw_card()
+            Si jugador Entonces
+                Inicio
+                    Hacer jugador += carta
+                    Hacer ms_j += " " +carta
+                Fin
+            Sino
+                Inicio
+                    Hacer maquina+= carta
+                    Hacer ms_m += " " +carta
+                Fin
+            Fin
+        Fin
+
+
+    Nombre_sb: turno_j
+        Inicio
+            Escribir ms_j
+            Mientras jugador<21 Hacer
+            Escribir "Desea tomara una carta mas? (s/n)"
+            Leer variable
+            Si variable = "s" Entonces
+                Hacer card(true)
+                Escribir ms_j
+            Sino 
+                Romper
+            Si jugador>21 Entonces
+                Inicio
+                    Escribir "Perdiste :("
+                    Romper
+                Fin
+            Fin
+        Fin
+
+
+
+
+
