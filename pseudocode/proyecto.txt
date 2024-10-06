@@ -1,167 +1,91 @@
-Inicio
-Estructura Carta:
-    - palo: string
-    - valor: string
-    - puntaje: entero
+Nombre: BalckJack
+Declaración de  Variables:
+    Entero: jugador, maquina, carta
+    Cadena: ms_jugador, ms_maquina
 
-Función barajarMazo():
-    Crear un vector vacío de Carta llamado mazo
-    Definir palos como ["Corazones", "Diamantes", "Tréboles", "Picas"]
-    Definir valores como ["2", "3", ..., "10", "J", "Q", "K", "A"]
-    Definir puntajes como [2, 3, ..., 10, 10, 10, 10, 11]
+Declaración de sub_procesos:
 
-    Para cada palo en palos:
-        Para i desde 0 hasta 12:
-            Crear carta con palo, valor y puntaje correspondiente
-            Añadir carta al mazo
+    Nombre_sb: mas_carta(el_jugador)
+    Declaración de Variables:
+        Logico: el_jugador
+        Inicio
+            Hacer carta =  robar_carta()
+            Si jugador Entonces
+                Inicio
+                    Hacer jugador += carta
+                    Hacer ms_jugador += " " +carta
+                Fin
+            Sino
+                Inicio
+                    Hacer maquina += carta
+                    Hacer ms_maquina += " "+ carta
+                Fin
+        Fin
 
-    Barajar mazo aleatoriamente
-    Retornar mazo
 
-Función repartirCarta(mazo):
-    Si mazo está vacío:
-        mazo ← barajarMazo()
-    carta ← último elemento de mazo
-    Remover último elemento de mazo
-    Retornar carta
+    Nombre_sb: turno_jugador
+        Inicio
+            Escribir ms_jugador
+            Mientras jugador<21 Hacer
+            Escribir "Desea tomar una carta ?"
+            Escribir "SI(s)- NO(n)"
+            Leer variable
+            Si variable = "s" Entonces
+                Hacer mas_carta(true)
+                Escribir ms_jugador
+            Sino 
+                Romper
+            Si jugador>21 Entonces
+                Inicio
+                    Escribir "Perdiste :("
+                    Romper
+                Fin
+            Sino
+                Si jugador = 21 Entonces
+                    Inicio
+                        Escribir"Ganaste"
+                        Romper
+                    Fin
+        Fin
 
-Función calcularPuntaje(mano):
-    puntaje ← 0
-    ases ← 0
+        Nombre_sb: turno_maquina()
+        Inicio
+        Escribir ms_maquina
+        Si maquina < jugador Entonces
+            Inicio
+                Escribir "Ganaste :)"
+            Fin
+        Sino
+            Si maquina=jugador Entonces
+                Inicio
+                    Escribir "Han empatado"
+                Fin
+            Sino
+                Inicio
+                    Escribir "Perdiste :("
+                Fin
+        Fin
 
-    Para cada carta en mano:
-        puntaje ← puntaje + carta.puntaje
-        Si carta.valor es "A":
-            ases ← ases + 1
+    Nombre_sb: inicializar_juego()
+    Inicio
+    Escribir"---------------------"
+    Escribir"     BLACKJACK       "
+    Escribir"---------------------"
+    Escribir" Bienvenido jugador "
+        Hacer jugador=0, maquina=0, ms_jugador="El jugador tiene: ", ms_maquina="La maquina tiene: "
+        Hacer mas_carta(true)
+        Hacer mas_carta(true)
+        Hacer mas_carta(false)
+        Hacer mas_carta(false)
+    Fin
 
-    Mientras puntaje <= 11 y ases > 0:
-        puntaje ← puntaje + 10
-        ases ← ases - 1
+    Inicio
+    Hacer inicializar_juego()
+    Hacer turno_jugador()
+    Hacer turno_maquina()
+    Hacer mas_carta()
+    Fin
 
-    Retornar puntaje
 
-Función manejarAs():
-    Imprimir "Has sacado un As. ¿Deseas que valga 1 o 11?"
-    Leer respuesta
-    Mientras respuesta no sea 1 o 11:
-        Leer respuesta
-    Retornar respuesta
 
-Función registrarPartida(resultado, puntajeJugador, puntajeComputadora, apuesta):
-    Abrir archivo "historial.txt" en modo de escritura
-    Escribir resultado, puntajeJugador, puntajeComputadora, apuesta en el archivo
-    Cerrar archivo
 
-Función verHistorial():
-    Abrir archivo "historial.txt" en modo de lectura
-    Mientras haya líneas en el archivo:
-        Leer línea
-        Imprimir línea
-    Cerrar archivo
-
-Función iniciarJuego():
-    dineroJugador ← 1000
-    mazo ← barajarMazo()
-    seguirJugando ← verdadero
-
-    Mientras seguirJugando y dineroJugador > 0:
-        Imprimir "Tienes dineroJugador monedas. ¿Cuánto deseas apostar?"
-        Leer apuesta
-
-        Si apuesta > dineroJugador:
-            Imprimir "No tienes suficiente dinero."
-            Continuar
-
-        dineroJugador ← dineroJugador - apuesta
-
-        manoJugador ← []
-        manoComputadora ← []
-
-        manoJugador.Añadir repartirCarta(mazo)
-        manoJugador.Añadir repartirCarta(mazo)
-        manoComputadora.Añadir repartirCarta(mazo)
-        manoComputadora.Añadir repartirCarta(mazo)
-
-        Si calcularPuntaje(manoJugador) == 21:
-            Imprimir "¡BLACKJACK! Has ganado."
-            dineroJugador ← dineroJugador + apuesta * 1.5
-            registrarPartida("Victoria (BLACKJACK)", calcularPuntaje(manoJugador), calcularPuntaje(manoComputadora), apuesta)
-            Continuar
-
-        Si calcularPuntaje(manoComputadora) == 21:
-            Imprimir "¡BLACKJACK! La computadora ha ganado."
-            registrarPartida("Derrota (BLACKJACK)", calcularPuntaje(manoJugador), calcularPuntaje(manoComputadora), apuesta)
-            Continuar
-
-        Imprimir cartas de manoJugador y puntaje
-        Imprimir carta visible de manoComputadora
-
-        plantarse ← falso
-        Mientras no plantarse y calcularPuntaje(manoJugador) < 21:
-            Imprimir "¿Deseas pedir otra carta (hit) o plantarte (stand)?"
-            Leer acción
-
-            Si acción es "hit":
-                nuevaCarta ← repartirCarta(mazo)
-                Imprimir "Has sacado: ", nuevaCarta
-                manoJugador.Añadir nuevaCarta
-                Si nuevaCarta.valor es "A":
-                    nuevaCarta.puntaje ← manejarAs()
-                Imprimir puntaje actual
-
-                Si calcularPuntaje(manoJugador) > 21:
-                    Imprimir "¡Te has pasado de 21! Has perdido."
-                    registrarPartida("Derrota", calcularPuntaje(manoJugador), calcularPuntaje(manoComputadora), apuesta)
-                    Salir del ciclo
-
-            Sino si acción es "stand":
-                plantarse ← verdadero
-
-        Si calcularPuntaje(manoJugador) <= 21:
-            Mientras calcularPuntaje(manoComputadora) < 17:
-                nuevaCarta ← repartirCarta(mazo)
-                manoComputadora.Añadir nuevaCarta
-                Imprimir carta sacada por la computadora
-
-            Imprimir cartas de manoComputadora y puntaje
-
-            Si calcularPuntaje(manoJugador) > calcularPuntaje(manoComputadora):
-                Imprimir "¡Has ganado!"
-                dineroJugador ← dineroJugador + apuesta * 2
-                registrarPartida("Victoria", calcularPuntaje(manoJugador), calcularPuntaje(manoComputadora), apuesta)
-            Sino si calcularPuntaje(manoJugador) < calcularPuntaje(manoComputadora) y calcularPuntaje(manoComputadora) <= 21:
-                Imprimir "La computadora ha ganado."
-                registrarPartida("Derrota", calcularPuntaje(manoJugador), calcularPuntaje(manoComputadora), apuesta)
-            Sino:
-                Imprimir "¡Empate!"
-                dineroJugador ← dineroJugador + apuesta
-
-        Imprimir "¿Deseas jugar otra ronda? (sí/no)"
-        Leer respuesta
-        seguirJugando ← (respuesta == "sí")
-
-        Si dineroJugador <= 0:
-            Imprimir "Te has quedado sin dinero, fin del juego."
-            Salir
-
-Fin del juego
-
-Función menuPrincipal():
-    Imprimir "Bienvenido al Blackjack. Selecciona una opción:"
-    Imprimir "1. Iniciar nuevo juego."
-    Imprimir "2. Ver historial de juegos."
-    Imprimir "3. Salir."
-    Leer opción
-
-    Mientras opción no sea 3:
-        Si opción = 1:
-            iniciarJuego()
-        Sino si opción = 2:
-            verHistorial()
-        Otras opciones:
-            Imprimir "Opción no válida."
-        
-        Llamar a menuPrincipal()
-    
-    Imprimir "Gracias por jugar."
-Fin
