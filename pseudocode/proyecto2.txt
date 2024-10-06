@@ -83,6 +83,7 @@ Declaración de sub_procesos:
     Hacer inicializar_juego()
     Hacer turno_jugador()
     Hacer turno_maquina()
+    Hacer mas_carta()
     Fin
 
 
