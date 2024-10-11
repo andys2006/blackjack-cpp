@@ -1,0 +1,87 @@
+Nombre: BalckJack
+Declaración de  Variables:
+    Entero: jugador, maquina, carta
+    Cadena: ms_jugador, ms_maquina
+
+Declaración de sub_procesos:
+
+    Nombre_sb: mas_carta(el_jugador)
+    Declaración de Variables:
+        Logico: el_jugador
+        Inicio
+            Hacer carta =  robar_carta()
+            Si jugador Entonces
+                Inicio
+                    Hacer jugador += carta
+                    Hacer ms_jugador += " " +carta
+                Fin
+            Sino
+                Inicio
+                    Hacer maquina += carta
+                    Hacer ms_maquina += " "+ carta
+                Fin
+        Fin
+
+
+    Nombre_sb: turno_jugador
+        Inicio
+            Escribir ms_jugador
+            Mientras jugador<21 Hacer
+            Escribir "Desea tomar una carta ?"
+            Escribir "SI(s)- NO(n)"
+            Leer variable
+            Si variable = "s" Entonces
+                Hacer mas_carta(true)
+                Escribir ms_jugador
+            Sino 
+                Romper
+            Si jugador>21 Entonces
+                Inicio
+                    Escribir "Perdiste :("
+                    Romper
+                Fin
+            Sino
+                Si jugador = 21 Entonces
+                    Inicio
+                        Escribir"Ganaste"
+                        Romper
+                    Fin
+        Fin
+
+        Nombre_sb: turno_maquina()
+        Inicio
+        Escribir ms_maquina
+        Si maquina < jugador Entonces
+            Inicio
+                Escribir "Ganaste :)"
+            Fin
+        Sino
+            Si maquina=jugador Entonces
+                Inicio
+                    Escribir "Han empatado"
+                Fin
+            Sino
+                Inicio
+                    Escribir "Perdiste :("
+                Fin
+        Fin
+
+    Nombre_sb: inicializar_juego()
+    Inicio
+    Escribir"---------------------"
+    Escribir"     BLACKJACK       "
+    Escribir"---------------------"
+    Escribir" Bienvenido jugador "
+        Hacer jugador=0, maquina=0, ms_jugador="El jugador tiene: ", ms_maquina="La maquina tiene: "
+        Hacer mas_carta(true)
+        Hacer mas_carta(true)
+        Hacer mas_carta(false)
+        Hacer mas_carta(false)
+    Fin
+
+    Inicio
+    Hacer inicializar_juego()
+    Hacer turno_jugador()
+    Hacer turno_maquina()
+    Hacer mas_carta()
+    Fin
